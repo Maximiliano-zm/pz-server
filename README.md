@@ -1,5 +1,7 @@
 # Servidor Project Zomboid Build 42 Unstable (Docker)
 
+> **Rama `dev`** — defaults reducidos (Xmx=8G, Xms=4G, MaxPlayers=10, WSL2=12GB). Pensada para iteración local en una máquina sin 40 GB. Para producción usar la rama `prod`.
+
 Servidor PZ B42 unstable para 20 jugadores con 75 mods (colección Workshop `3719673645`), PvP libre, privado con contraseña, optimizado para correr en una VM Windows 11 con 40 GB de RAM via Docker Desktop + WSL2.
 
 ## Ramas del repo

@@ -41,7 +41,7 @@ Elegir rama:
 - `test` → solo cuando se vaya a probar un cambio puntual de config
 
 ```powershell
-$BRANCH = 'prod'              # cambiar si aplica
+$BRANCH = 'dev'               # esta es la rama de iteracion local
 cd $env:USERPROFILE
 git clone -b $BRANCH https://github.com/Maximiliano-zm/pz-server.git
 cd pz-server
@@ -84,8 +84,9 @@ ADMIN_PASSWORD=$([guid]::NewGuid().ToString('N').Substring(0,16))
 SERVER_PASSWORD=$([guid]::NewGuid().ToString('N').Substring(0,12))
 RCON_PASSWORD=$([guid]::NewGuid().ToString('N').Substring(0,16))
 
-MEMORY_XMS_GB=15
-MEMORY_XMX_GB=30
+MEMORY_XMS_GB=4
+MEMORY_XMX_GB=8
+MAX_PLAYERS=10
 "@ | Out-File -FilePath .env -Encoding ascii -NoNewline
 ```
 
@@ -255,7 +256,7 @@ docker compose stop
 Si todo va bien, el flujo completo es:
 
 ```powershell
-$BRANCH = 'prod'
+$BRANCH = 'dev'
 cd $env:USERPROFILE
 git clone -b $BRANCH https://github.com/Maximiliano-zm/pz-server.git
 cd pz-server
@@ -266,8 +267,9 @@ Start-Sleep 30
 ADMIN_PASSWORD=$([guid]::NewGuid().ToString('N').Substring(0,16))
 SERVER_PASSWORD=$([guid]::NewGuid().ToString('N').Substring(0,12))
 RCON_PASSWORD=$([guid]::NewGuid().ToString('N').Substring(0,16))
-MEMORY_XMS_GB=15
-MEMORY_XMX_GB=30
+MEMORY_XMS_GB=4
+MEMORY_XMX_GB=8
+MAX_PLAYERS=10
 "@ | Out-File .env -Encoding ascii -NoNewline
 docker compose up -d
 # esperar 30-40 min al primer arranque, luego:

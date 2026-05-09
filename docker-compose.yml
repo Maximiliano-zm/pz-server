@@ -7,8 +7,8 @@ services:
 
     environment:
       SERVER_BRANCH: unstable
-      MEMORY_XMS_GB: "${MEMORY_XMS_GB:-15}"
-      MEMORY_XMX_GB: "${MEMORY_XMX_GB:-30}"
+      MEMORY_XMS_GB: "${MEMORY_XMS_GB:-4}"
+      MEMORY_XMX_GB: "${MEMORY_XMX_GB:-8}"
 
       SERVER_NAME: servertest
       ADMIN_USERNAME: admin
@@ -18,7 +18,7 @@ services:
 
       SERVER_PORT: "16261"
       SERVER_PUBLIC: "false"
-      MAX_PLAYERS: "20"
+      MAX_PLAYERS: "${MAX_PLAYERS:-10}"
 
       EXTRA_JVM_ARGS: "-XX:+UseZGC -XX:+UseStringDeduplication -XX:MaxGCPauseMillis=50"
 
@@ -31,8 +31,8 @@ services:
       - pz-server-data:/project-zomboid
       - pz-server-config:/project-zomboid-config
 
-    mem_limit: 32g
-    mem_reservation: 15g
+    mem_limit: 10g
+    mem_reservation: 4g
 
 volumes:
   pz-server-data:

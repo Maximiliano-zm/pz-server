@@ -1,10 +1,13 @@
 ; Copia este archivo a %UserProfile%\.wslconfig en el PC de 30 GB.
 ; Tras pegarlo: ejecutar `wsl --shutdown` y volver a abrir Docker Desktop.
 
+; Defaults para rama dev: máquina de iteración local con ~12-16 GB libres.
+; En prod usar el .wslconfig de la rama prod (memory=34GB).
+
 [wsl2]
-memory=34GB
-processors=8
-swap=8GB
+memory=12GB
+processors=4
+swap=4GB
 autoMemoryReclaim=gradual
 sparseVhd=true
 networkingMode=mirrored
