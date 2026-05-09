@@ -1,0 +1,10 @@
+; Copia este archivo a %UserProfile%\.wslconfig en el PC de 30 GB.
+; Tras pegarlo: ejecutar `wsl --shutdown` y volver a abrir Docker Desktop.
+
+[wsl2]
+memory=27GB
+processors=8
+swap=8GB
+autoMemoryReclaim=gradual
+sparseVhd=true
+networkingMode=mirrored
