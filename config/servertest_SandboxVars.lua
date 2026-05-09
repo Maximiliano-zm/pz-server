@@ -171,4 +171,10 @@ SandboxVars = {
     RearVulnerability = 3,
     AttackBlockMovements = true,
     AllClothesUnlocked = false,
+
+    Map = {
+        AllowMiniMap = true,
+        AllowWorldMap = true,
+        MapAllKnown = true,
+    },
 }
