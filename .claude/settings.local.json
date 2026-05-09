@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker exec *)",
+      "Bash(tasklist)",
+      "Bash(findstr /I playit)",
+      "PowerShell(Get-Process *)",
+      "Bash(docker stats *)",
+      "WebSearch",
+      "WebFetch(domain:steamcommunity.com)",
+      "WebFetch(domain:theindiestone.com)",
+      "Bash(docker compose *)",
+      "Bash(docker run *)",
+      "PowerShell(Get-CimInstance *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(wsl --shutdown; Write-Output \"Shutdown done\")",
+      "Bash(docker info *)",
+      "WebFetch(domain:pzfans.com)",
+      "WebFetch(domain:winternode.com)",
+      "WebFetch(domain:pzwiki.net)",
+      "PowerShell(New-Item *)",
+      "Bash(docker cp *)",
+      "PowerShell(docker exec *)"
+    ]
+  }
+}

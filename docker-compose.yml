@@ -5,7 +5,13 @@ services:
     restart: unless-stopped
     stop_grace_period: 60s
 
+    security_opt:
+      - seccomp=unconfined
+
     environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "America/Santiago"
       SERVER_BRANCH: unstable
       MEMORY_XMS_GB: "${MEMORY_XMS_GB:-15}"
       MEMORY_XMX_GB: "${MEMORY_XMX_GB:-30}"
@@ -31,9 +37,11 @@ services:
       - pz-server-data:/project-zomboid
       - pz-server-config:/project-zomboid-config
 
-    mem_limit: 32g
-    mem_reservation: 15g
+    mem_limit: 54g
+    mem_reservation: 32g
 
 volumes:
   pz-server-data:
+    name: pz-server-data
   pz-server-config:
+    name: pz-server-config
