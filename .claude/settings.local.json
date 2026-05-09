@@ -20,7 +20,24 @@
       "WebFetch(domain:pzwiki.net)",
       "PowerShell(New-Item *)",
       "Bash(docker cp *)",
-      "PowerShell(docker exec *)"
+      "PowerShell(docker exec *)",
+      "Bash(git pull *)",
+      "Bash(ngrok version *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(Expand-Archive *)",
+      "PowerShell(& \"C:\\\\ngrok\\\\ngrok.exe\" config add-authtoken \"cr_2bPcrQOFAQXl971jEJq4EVNwmpb\")",
+      "PowerShell(Start-Process -FilePath \"C:\\\\ngrok\\\\ngrok.exe\" -ArgumentList \"tcp 27015\" -WindowStyle Normal)",
+      "PowerShell(Start-Sleep -Seconds 3; try { $r = Invoke-RestMethod -Uri \"http://localhost:4040/api/tunnels\" -UseBasicParsing; $r.tunnels | ForEach-Object { \"$\\($_.name\\): $\\($_.public_url\\)\" } } catch { \"API no disponible aún\" })",
+      "PowerShell(Start-Sleep -Seconds 4; try { $r = Invoke-RestMethod -Uri \"http://localhost:4040/api/tunnels\" -UseBasicParsing; $r.tunnels | ForEach-Object { \"$\\($_.name\\): $\\($_.public_url\\)\" } } catch { \"API no disponible: $_\" })",
+      "PowerShell(Receive-Job *)",
+      "PowerShell(& \"C:\\\\ngrok\\\\ngrok.exe\" config add-authtoken \"2bPcrQOFAQXl971jEJq4EVNwmpb_4EWcbaP8F9qvLtC3Vmia3\")",
+      "PowerShell(Test-NetConnection *)",
+      "PowerShell(Start-Process -FilePath \"C:\\\\ngrok\\\\ngrok.exe\" -ArgumentList \"tcp 27015 --log=stdout --log-format=json\" -RedirectStandardOutput \"C:\\\\ngrok\\\\ngrok.log\" -WindowStyle Hidden; Start-Sleep -Seconds 6; try { $r = Invoke-RestMethod -Uri \"http://localhost:4040/api/tunnels\" -UseBasicParsing; $r.tunnels | ForEach-Object { \"$\\($_.name\\): $\\($_.public_url\\)\" } } catch { Get-Content \"C:\\\\ngrok\\\\ngrok.log\" -Tail 10 })",
+      "PowerShell(docker restart pz-b42-server *)",
+      "PowerShell(docker compose down *)",
+      "PowerShell(docker compose up *)",
+      "Read(//mnt/c/Users/**)",
+      "Bash(wslpath -u \"C:\\\\\\\\Users\\\\\\\\Administrador\\\\\\\\pz-server\\\\\\\\config\\\\\\\\servertest_SandboxVars.lua\")"
     ]
   }
 }
