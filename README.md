@@ -15,11 +15,19 @@ pz-server/
 ├── docker-compose.yml          # servicio único, image indifferentbroccoli/projectzomboid-server-docker
 ├── .env                        # contraseñas + RAM (NO commitear)
 ├── .wslconfig.example          # copiar a %UserProfile%\.wslconfig
+├── start.bat                   # arranque rápido solo LAN (docker compose up -d)
+├── start_with_playit.bat       # arranque público vía túnel playit.gg + Docker
+├── stop_with_playit.bat        # apaga PZ y cierra el túnel playit
+├── setup_playit.bat            # vinculación inicial del agente playit.gg
+├── mods-line.txt               # output de extract-mod-ids (línea Mods= lista para pegar)
 ├── config/
-│   ├── servertest.ini          # config principal (PvP, anti-cheat, mods)
+│   ├── servertest.ini          # config principal (PvP, anti-cheat, mods, RCON)
 │   └── servertest_SandboxVars.lua  # zombies, animales, B42 nuevo
+├── playit/
+│   └── playit.exe              # agente playit.gg (túnel para sortear CGNAT)
 ├── scripts/
 │   ├── extract-mod-ids.ps1     # genera Mods= leyendo cada mod.info
+│   ├── extract.sh              # variante shell (WSL) para extraer mod IDs
 │   ├── apply-config.ps1        # vuelca config/ al volumen Docker
 │   └── backup.ps1              # tar.gz del volumen Saves
 └── README.md
@@ -88,7 +96,37 @@ docker compose logs -f
 ### 7. Abrir puertos
 - **Firewall Windows**: permitir entrante UDP 16261, 16262 y TCP 27015 (RCON).
 - **Router**: NAT a la IP local del PC en los mismos puertos.
-- Si tu ISP usa CGNAT, usa Playit.gg, Tailscale Funnel o un VPS con WireGuard de relay.
+- Si tu ISP usa CGNAT, usa el flujo playit.gg integrado (ver siguiente sección), Tailscale Funnel o un VPS con WireGuard de relay.
+
+## Arranque rápido con scripts `.bat`
+
+Para evitar acordarse de los comandos de Docker existen tres scripts en la raíz:
+
+| Script | Cuándo usarlo |
+|---|---|
+| `start.bat` | Arranque solo LAN — equivalente a `docker compose up -d` y mostrar logs. |
+| `start_with_playit.bat` | Arranque público: levanta el túnel playit.gg en una ventana TUI aparte y luego el contenedor. |
+| `stop_with_playit.bat` | Apaga el contenedor PZ (con `stop_grace_period` 60s) y cierra el agente playit.gg. |
+| `setup_playit.bat` | Solo la primera vez: abre `playit.exe` para reclamar el agente vía URL `https://playit.gg/claim/...`. |
+
+Los scripts asumen que el repo está en `%USERPROFILE%\pz-server`.
+
+## playit.gg (túnel para CGNAT)
+
+Para servidores detrás de CGNAT (IP pública 100.x.x.x) o sin acceso al router, el repo incluye el agente `playit/playit.exe`.
+
+### Setup inicial
+1. Ejecuta `setup_playit.bat`.
+2. Copia la URL `https://playit.gg/claim/XXXXXXXXXX` que imprime el agente.
+3. Inicia sesión en playit.gg en el navegador y dale **Claim Agent**.
+4. Configura un **Tunnel** UDP→16261 (Project Zomboid) en el dashboard de playit.gg.
+5. Cierra la TUI. El secret queda guardado en `%LOCALAPPDATA%\playit_gg\playit.toml`.
+
+### Uso diario
+- **Arrancar**: `start_with_playit.bat` — levanta túnel + Docker.
+- **Parar**: `stop_with_playit.bat`.
+
+La dirección pública (formato `xxx-xxx.gl.at.ply.gg:PORT`) la asigna playit.gg en el dashboard y se imprime al final de `start_with_playit.bat`.
 
 ## Verificación
 
@@ -138,6 +176,20 @@ docker compose stop
 - `/quit` — apaga el server limpio
 - `/teleportto X,Y,Z` — TP
 - `/kick "USER"` / `/banuser "USER"` — moderación
+
+## Balance de zombies
+
+El servidor venía configurado con zombies muy duros y los jugadores reportaron que los oían demasiado lejos. Tuneo actual en `config/servertest_SandboxVars.lua`:
+
+| Variable | Valor | Nota |
+|---|---|---|
+| `Hearing` | `3` (Poor) | Antes `2` (Normal). Bajado por feedback de los jugadores. |
+| `Memory` | `3` (Short) | Antes `2`. Olvidan al jugador antes — se desenganchan más rápido. |
+| `Sight` | `2` (Normal) | Sin cambios. |
+| `Cognition` | `3` (Basic) | Sin cambios — ya estaba en el escalón más estúpido. |
+| `FollowSoundDistance` | `50` | Antes `100`. Distancia (tiles) a la que un sonido los atrae. |
+
+Si los jugadores piden subir o bajar la dificultad, esos cuatro valores son los primeros a tocar. Tras editar el `.lua`, aplicar con `./scripts/apply-config.ps1` y reiniciar el contenedor.
 
 ## Caveats
 
