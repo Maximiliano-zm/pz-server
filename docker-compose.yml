@@ -7,8 +7,8 @@ services:
 
     environment:
       SERVER_BRANCH: unstable
-      MEMORY_XMS_GB: "${MEMORY_XMS_GB:-12}"
-      MEMORY_XMX_GB: "${MEMORY_XMX_GB:-24}"
+      MEMORY_XMS_GB: "${MEMORY_XMS_GB:-15}"
+      MEMORY_XMX_GB: "${MEMORY_XMX_GB:-30}"
 
       SERVER_NAME: servertest
       ADMIN_USERNAME: admin
@@ -31,8 +31,8 @@ services:
       - pz-server-data:/project-zomboid
       - pz-server-config:/project-zomboid-config
 
-    mem_limit: 26g
-    mem_reservation: 12g
+    mem_limit: 32g
+    mem_reservation: 15g
 
 volumes:
   pz-server-data:

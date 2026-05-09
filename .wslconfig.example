@@ -2,7 +2,7 @@
 ; Tras pegarlo: ejecutar `wsl --shutdown` y volver a abrir Docker Desktop.
 
 [wsl2]
-memory=27GB
+memory=34GB
 processors=8
 swap=8GB
 autoMemoryReclaim=gradual

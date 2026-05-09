@@ -1,6 +1,12 @@
 # Servidor Project Zomboid Build 42 Unstable (Docker)
 
-Servidor PZ B42 unstable para 20 jugadores con 75 mods (colección Workshop `3719673645`), PvP libre, privado con contraseña, optimizado para correr en un host Windows 11 con 30 GB de RAM via Docker Desktop + WSL2.
+Servidor PZ B42 unstable para 20 jugadores con 75 mods (colección Workshop `3719673645`), PvP libre, privado con contraseña, optimizado para correr en una VM Windows 11 con 40 GB de RAM via Docker Desktop + WSL2.
+
+## Ramas del repo
+
+- **`prod`** — config que corre en la VM en producción.
+- **`dev`** — iteración local con defaults reducidos (Xmx=8G, MaxPlayers=10) para validar mods y configs sin necesitar 40 GB.
+- **`test`** — solo para probar puntualmente un cambio de configuración antes de mergear a `prod`.
 
 ## Estructura
 
@@ -21,20 +27,21 @@ pz-server/
 
 ## RAM
 
-Política agresiva (recomendada para esta máquina dedicada):
+Política agresiva sobre VM de 40 GB:
 
 | Componente | RAM |
 |---|---|
-| JVM PZ (`-Xms12G -Xmx24G`) | 24 GB |
-| Docker engine + WSL2 kernel | ~2 GB |
-| Windows 11 + cliente Steam | ~3 GB |
-| Buffer | 1 GB |
-| **Total** | **30 GB** |
+| JVM PZ (`-Xms15G -Xmx30G`) | 30 GB |
+| `mem_limit` del contenedor (heap + native + JIT) | 32 GB |
+| WSL2 kernel + Docker engine | ~2 GB |
+| Windows 11 (sin cliente Steam corriendo) | ~4 GB |
+| Buffer | 2 GB |
+| **Total** | **40 GB** |
 
 Si aparecen GC pauses largas u OOM kills, edita `.env`:
 ```env
-MEMORY_XMS_GB=10
-MEMORY_XMX_GB=20
+MEMORY_XMS_GB=12
+MEMORY_XMX_GB=24
 ```
 y `docker compose up -d`.
 
