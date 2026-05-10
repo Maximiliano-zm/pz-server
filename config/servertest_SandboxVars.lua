@@ -27,6 +27,7 @@ SandboxVars = {
     ErosionDays = 0,
     XpMultiplier = 1.0,
     XpMultiplierAffectsPassive = false,
+    MinutesPerPage = 1.0,
     StatsDecrease = 3,
     NatureAbundance = 3,
     Alarm = 2,
