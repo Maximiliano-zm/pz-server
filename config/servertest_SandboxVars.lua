@@ -176,9 +176,4 @@ SandboxVars = {
         AllowWorldMap = true,
         MapAllKnown = true,
     },
-
-    -- Deshabilitar prying de CommonSense: usa STA_PryOpen que tiene mejor manejo MP
-    CommonSense = {
-        PryingMechanic = false,
-    },
 }
